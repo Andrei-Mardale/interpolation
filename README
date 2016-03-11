@@ -1,0 +1,27 @@
+Pentru citirea datelor folosesc 2 functii:
+ - openInput - deschide fisierul si ia valorile pentru m si n
+ - readLine - citeste un rand din fisier si imparte datele pentru x si y. Pe langa asta mai sorteaza datele dupa valoare de pe abscisa. Fac asta aranjand datele intr-o matrice si apoi sortand dupa o coloana folosind sortrows().
+
+Pentru toate functiile F1..F4 am folosit linspace pentru obtinerea unui set de puncte echidistante.
+
+Pentru toate functiile am folosit variabilele v - vectorul valorilor de pe abscisa si V - vectorul valorilor functiilor in punctele v
+
+La F1 am folosit metoda Neville. Am implementat-o folosind 2 vectori, unul care tine datele si unul in care sunt calculate cele de la pasul urmator avand rol de buffer. La sfarsitul unei iteratii vectorul permanent ia valoarea buffer-ului si repet. Astfel este utilizata mai putina memorie decat daca as folosi o matrice. Dimensiunea vectorilor scade pana cand ajunge la 1 moment in care am gasit valoarea cautata si o intorc.
+
+La F2 ma pozitionez pe unul din intervale si apoi calculez panta a si constanta b dupa care aplic formula ecuatiei liniare pentru fiecare din punctele situate in intervalul x(i), x(i+1). Vac asta verificand ca valoarea de pe abscisa sa nu depaseasca valoarea x(i+1). Pentru oprire mai adaug o valoarea mai mare decat x(n) in vectorul v, la sfarsit.
+
+La F3 construiesc sistemul tridiagonal corespunzator conditiilor spline-urilor cubice naturale si il rezolv folosind Thomas. Apoi asemanator modului de rezolvare de la F2 calculez parametrii pentru fiecare interval si determin valorile V.
+
+La F4 apare diferenta legata de modul de construire a sistemului tridiagonal, avand alte conditii pentru spline-urile tensionate. Dupa asta il rezolv tot cu Thomas si procedez la fel ca la F3.
+
+La construirea sistemului tridiagonal pentru cele F3 si FB semnificatia variabilelor este:
+a - diagonala inferioara (lungime n) - este mai usor de accesat in implementarea Thomas
+b - diagonala principala (lungime n)
+c - diagonala superioara (lungime n-1)
+d - vectorul liber (lungime n)
+
+Avandu-l pe a pot sa duc valorile in h care va fi vectorul diferenteor pentru x. Acesta poate fi calculat si cu diff(x).
+
+Pe parcursul implementarii semnificatia variabilelor a, b, d se schimba. Astfel in prima faza ele reprezinta vectori si apoi reprezinta parametrii pentru calcularea functiilor spline.
+
+Implementarea algoritmului Thomas este cea facuta la laboratorul 4. Pe aceasta am si folosit-o in tema.
